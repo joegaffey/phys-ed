@@ -4,6 +4,7 @@ import Matter from './matter.js';
 const ta = document.querySelector('textarea');
 const can = document.querySelector('canvas');
 const canTest = document.querySelector('#testCanvas');
+const testBg = document.querySelector('.testBg');
 const clsControl = document.querySelector('#cls');
 const testControl = document.querySelector('#testControl');
 const scaleControl = document.querySelector('#imgScale');
@@ -19,7 +20,7 @@ img.onload = () => {
   draw();
 }
 
-can.onpointerdown  = (e) => {
+can.onpointerdown = (e) => {
   let x = e.clientX - can.offsetLeft;
   let y = e.clientY - can.offsetTop;
   if(img) {
@@ -44,6 +45,12 @@ ta.onchange = (e) => {
 
 clsControl.onclick = () => { cls(); };
 testControl.onclick = () => { runTest() };
+
+testBg.onpointerdown = (e) => {
+  canTest.classList.toggle('invisible');
+  testBg.classList.toggle('invisible');
+}
+
                              
 const imageLoader = document.getElementById('imageLoader');
 imageLoader.onchange = (e) => { loadImage(e); }
@@ -146,6 +153,7 @@ canTest.onpointerdown  = (e) => {
 
 function runTest() {
   canTest.classList.toggle('invisible');
+  testBg.classList.toggle('invisible');
   
   engine = Matter. Engine.create();
   engine.timing.isFixed = true;
