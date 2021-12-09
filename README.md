@@ -6,16 +6,23 @@ Basic 2D physics body editor.
 
 ## Why?
 
-Used this to generate physics body hulls for use in physics apps and games using a physics library like [matter.js](https://brm.io/matter-js/).
+Use this tool to generate physics body shapes for 2D physics apps and games.  
+Output format is based on [matter.js](https://brm.io/matter-js/) physics library.
 
 ## How?
 
-Click to create points to represent the outline of your physics object. Trace the outline of an image with a transparent background for best effect.
+Click to create points to represent the outline of your physics object.  
+Trace the outline of an image with a transparent background for best effect.
+Preview the generated shape in action with the built-in test viewer.  
 
 ## Where?
 
-App is running [here](https://phys-ed.glitch.me/).
+Tool is running [here](https://phys-ed.glitch.me/).
 
 ## When?
 
 No time like the present.
+
+## Who?
+
+Just @joegaffey for now. All contributions appreciated. 
