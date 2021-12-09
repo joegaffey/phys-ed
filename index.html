@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="https://glitch.com/favicon.ico" />
+    <title>Physics Editor</title>
+    <link rel="canonical" href="https://phys-ed.glitch.me/" />
+    <meta
+      name="description"
+      content="2D Physics Editor tool"
+    />
+    <meta name="robots" content="index,follow" />
+    <meta
+      content="2D Physics Editor tool."
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="./script.js" type="module" defer></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="content" role="main">
+        <div class="controls">
+          <button id="cls">Clear</button>          
+          <form>
+            <label id="imageLoader" name="imageLoader" class="file-select">
+              <input type="file"/>
+              Select Image
+            </label>
+          </form>
+          <span>Zoom</span>
+          <input type="range" id="imgScale" name="imgScale" step="0.01" min="0.1" value="1" max="2"/>  
+          <button id="testControl">Test</button> 
+        </div>
+        <canvas id="editor"></canvas>
+        <canvas id="testCanvas" class="invisible"></canvas>
+        <textarea></textarea>
+      </div>
+    </div>
+  </body>
+</html>
