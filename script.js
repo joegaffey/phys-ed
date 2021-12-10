@@ -1,6 +1,6 @@
-// import decomp from './poly-decomp.js';
 import Matter from './matter.js';
 
+const decomp = window.decomp;
 const ta = document.querySelector('textarea');
 const can = document.querySelector('canvas');
 const canTest = document.querySelector('#testCanvas');
@@ -8,17 +8,18 @@ const testBg = document.querySelector('.testBg');
 const clsControl = document.querySelector('#cls');
 const testControl = document.querySelector('#testControl');
 const scaleControl = document.querySelector('#imgScale');
+const decompControl = document.querySelector('#decomp');
 const ctx = can.getContext('2d');
 
-let points = [{"x":253,"y":12},{"x":238,"y":37},{"x":222,"y":42},{"x":201,"y":54},{"x":157,"y":67},{"x":102,"y":65},{"x":68,"y":59},{"x":43,"y":49},{"x":2,"y":55},{"x":3,"y":68},{"x":11,"y":83},{"x":24,"y":94},{"x":36,"y":103},{"x":17,"y":106},{"x":15,"y":122},{"x":23,"y":140},{"x":41,"y":152},{"x":82,"y":167},{"x":94,"y":185},{"x":115,"y":200},{"x":140,"y":211},{"x":162,"y":214},{"x":196,"y":212},{"x":227,"y":203},{"x":257,"y":189},{"x":280,"y":176},{"x":299,"y":152},{"x":310,"y":136},{"x":316,"y":119},{"x":320,"y":99},{"x":315,"y":78},{"x":309,"y":66},{"x":298,"y":61},{"x":292,"y":45},{"x":287,"y":27},{"x":288,"y":19},{"x":287,"y":11},{"x":274,"y":4},{"x":267,"y":2},{"x":260,"y":6}];
+let points = [{"x":39,"y":115},{"x":20,"y":145},{"x":10,"y":181},{"x":15,"y":220},{"x":15,"y":220},{"x":26,"y":246},{"x":41,"y":269},{"x":8,"y":279},{"x":3,"y":298},{"x":7,"y":329},{"x":23,"y":354},{"x":44,"y":359},{"x":62,"y":354},{"x":44,"y":410},{"x":40,"y":438},{"x":58,"y":458},{"x":88,"y":467},{"x":117,"y":465},{"x":137,"y":453},{"x":137,"y":434},{"x":134,"y":425},{"x":159,"y":434},{"x":183,"y":431},{"x":187,"y":454},{"x":196,"y":473},{"x":243,"y":482},{"x":280,"y":474},{"x":288,"y":454},{"x":287,"y":429},{"x":276,"y":370},{"x":293,"y":375},{"x":313,"y":378},{"x":338,"y":368},{"x":357,"y":342},{"x":361,"y":311},{"x":355,"y":296},{"x":336,"y":286},{"x":314,"y":280},{"x":348,"y":242},{"x":359,"y":208},{"x":357,"y":180},{"x":354,"y":155},{"x":349,"y":141},{"x":362,"y":122},{"x":374,"y":104},{"x":376,"y":74},{"x":369,"y":53},{"x":354,"y":35},{"x":332,"y":24},{"x":297,"y":24},{"x":272,"y":35},{"x":258,"y":54},{"x":252,"y":64},{"x":207,"y":53},{"x":151,"y":54},{"x":138,"y":30},{"x":118,"y":12},{"x":93,"y":5},{"x":68,"y":6},{"x":46,"y":19},{"x":30,"y":40},{"x":26,"y":74},{"x":30,"y":97}];
 ta.value = JSON.stringify(points);
-let scale = 1;
+let scale = 0.5;
+scaleControl.value = scale;
 
 let img = new Image();
-img.src = 'https://cdn.glitch.me/f1488ce6-5a65-47dd-a741-6e6d90249fe1%2FBananas.png?v=1639083988282';
-img.onload = () => {
-  draw();
-}
+//https://commons.wikimedia.org/wiki/File:Little_Bear_Toy.svg
+img.src = 'https://cdn.glitch.me/22db1ff7-3ea8-4eab-9f25-9ca603a01e31%2FBear.png?v=1639170061996';
+img.onload = () => { draw(); };
 
 can.onpointerdown = (e) => {
   let x = e.clientX - can.offsetLeft;
@@ -47,7 +48,6 @@ clsControl.onclick = () => { cls(); };
 testControl.onclick = () => { runTest() };
 
 testBg.onpointerdown = (e) => {
-  canTest.classList.toggle('invisible');
   testBg.classList.toggle('invisible');
 }
 
@@ -145,18 +145,19 @@ function cls() {
 
 let engine = null;
 
-canTest.onpointerdown  = (e) => {
+canTest.onpointerdown = (e) => {
   let x = e.clientX - canTest.offsetLeft;
   let y = e.clientY - canTest.offsetTop;
   addObj(x, y);
+  e.stopPropagation();
 }
 
 function runTest() {
-  canTest.classList.toggle('invisible');
   testBg.classList.toggle('invisible');
   
-  engine = Matter. Engine.create();
-  engine.timing.isFixed = true;
+  (decompControl.checked) ? window.decomp = decomp : window.decomp = null;
+  
+  engine = Matter.Engine.create();
 
   const render = Matter.Render.create({
     canvas: canTest,
@@ -185,26 +186,27 @@ function runTest() {
 }
 
 function addObj(x, y) {
-  let render = {};
-  if(img) {
+  let render = { fillStyle: 'red' };
+  if(img)
     render = { 
-      sprite: {
+      sprite: { 
         texture: img.src,
-        xScale: 0.5,
-        yScale: 0.5
-      }
-    }
-  }
-  else 
-    render = { fillStyle: 'red' };
+        xScale: scale * 0.5,
+        yScale: scale * 0.5
+      }};
     
   const obj = Matter.Bodies.fromVertices(x, y, points, {
     label: 'obj',
     render: render
   }); 
-  Matter.Body.scale(obj, 0.5, 0.5);
+  Matter.Body.scale(obj, scale * 0.5, scale * 0.5);
   Matter.Composite.add(engine.world, [obj]);
 }
+
+const resizeObserver = new ResizeObserver(entries => {
+  resize();
+});
+resizeObserver.observe(can);
 
 function resize() {
   can.width = can.offsetWidth;
@@ -213,5 +215,3 @@ function resize() {
   canTest.height = canTest.offsetHeight;
   draw();
 }
-resize();
-window.onresize = resize;

@@ -15,6 +15,7 @@
       content="2D Physics Editor tool."
     />
     <link rel="stylesheet" href="/style.css" />
+    <script src="poly-decomp.js" type="text/javascript"></script>
     <script src="./script.js" type="module" defer></script>
   </head>
   <body>
@@ -24,17 +25,20 @@
           <button id="cls">Clear</button>          
           <form>
             <label id="imageLoader" name="imageLoader" class="file-select">
-              <input type="file"/>
+              <input type="file" accept="image/png, image/jpeg">
               Select Image
             </label>
           </form>
           <span>Zoom</span>
           <input type="range" id="imgScale" name="imgScale" step="0.01" min="0.1" value="1" max="2"/>  
+          <input type="checkbox" id="decomp" name="decomp">
+          <label for="decomp">Decompose</label>
           <button id="testControl">Test</button> 
         </div>
         <canvas id="editor"></canvas>
-        <div class="testBg invisible"></div>
-        <canvas id="testCanvas" class="invisible"></canvas>
+        <div class="testBg invisible">
+          <canvas id="testCanvas"></canvas>
+        </div>
         <textarea></textarea>
       </div>
     </div>
