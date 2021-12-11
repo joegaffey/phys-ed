@@ -4,7 +4,7 @@
 
 Basic 2D physics body editor.
 
-![Phys-Ed screenshot](https://cdn.glitch.me/22db1ff7-3ea8-4eab-9f25-9ca603a01e31%2Fscreen.png?v=1639241828720)
+![Phys-Ed screenshot](https://cdn.glitch.me/22db1ff7-3ea8-4eab-9f25-9ca603a01e31%2Fscreen.png?v=1639242170427)
 
 ## Why?
 
