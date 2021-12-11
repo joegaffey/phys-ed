@@ -1,4 +1,4 @@
-import Matter from './matter.js';
+import Matter from './matter-jg.js';
 
 const decomp = window.decomp;
 const ta = document.querySelector('textarea');
@@ -32,25 +32,26 @@ can.onpointerdown = (e) => {
                y: Math.round(y)});
   ta.value = JSON.stringify(points);
   draw();
-}
+};
 
 scaleControl.onchange = (e) => {
   scale = scaleControl.value;
   draw();
-} 
+};
 
 ta.onchange = (e) => {
   points = JSON.parse(ta.value);
   draw();
-} 
+};
 
+decompControl.onchange = (e) => { draw(); };
+                                 
 clsControl.onclick = () => { cls(); };
 testControl.onclick = () => { runTest() };
 
 testBg.onpointerdown = (e) => {
   testBg.classList.toggle('invisible');
 }
-
                              
 const imageLoader = document.getElementById('imageLoader');
 imageLoader.onchange = (e) => { loadImage(e); }
@@ -74,25 +75,11 @@ function setImageBB() {
 }
 
 function drawPoints() {
-  let sPoints = scaledPoints();
-  ctx.strokeStyle = '#000';
-  ctx.moveTo(sPoints[0].x, sPoints[0].y);
-  ctx.beginPath();
-  points.forEach((point, i) => {
-    if(i < sPoints.length) {
-      ctx.lineTo(sPoints[i].x, sPoints[i].y);
-    }
-  });
-  ctx.closePath();
-  if(sPoints.length > 2) {
-    ctx.fillStyle = 'red';
-    ctx.globalAlpha = 0.2;
-    ctx.fill(); 
-    ctx.globalAlpha = 1;
-    ctx.stroke();
-  }      
-  else if(sPoints.length > 1) 
-    ctx.stroke();
+  let sPoints = scaledPoints(points);
+  if(decompControl.checked)
+    drawDecomp();
+  else
+    drawPoly(sPoints);  
   ctx.fillStyle = '#000';
   ctx.globalAlpha = 1;
   sPoints.forEach((point) => {
@@ -102,19 +89,54 @@ function drawPoints() {
   });
 }
 
-function scaledPoints() {
+function drawDecomp() {
+  const ary2D = points.map((point) => {
+    return [point.x, point.y];
+  });
+  decomp.makeCCW(ary2D);
+  const decomposed = decomp.quickDecomp(ary2D);
+  decomposed.forEach(poly => {
+    poly = poly.map((point) => {
+      return {x: point[0], y: point[1]};
+    });
+    drawPoly(scaledPoints(poly));
+  });
+}
+
+function drawPoly(poly) {
+  ctx.strokeStyle = '#000';
+  ctx.moveTo(poly[0].x, poly[0].y);
+  ctx.beginPath();
+  poly.forEach((point, i) => {
+    if(i < poly.length) {
+      ctx.lineTo(poly[i].x, poly[i].y);
+    }
+  });
+  ctx.closePath();
+  if(poly.length > 2) {
+    ctx.fillStyle = 'red';
+    ctx.globalAlpha = 0.2;
+    ctx.fill(); 
+    ctx.globalAlpha = 1;
+    ctx.stroke();
+  }      
+  else if(poly.length > 1) 
+    ctx.stroke();
+}
+
+function scaledPoints(uPoints) {
   const sPoints = [];
-  points.forEach((point) => {
+  uPoints.forEach((point) => {
     if(img) {
       sPoints.push({ 
-        x: img.bb[0] + point.x * scale,
-        y: img.bb[1] + point.y * scale
+        x: Math.round(img.bb[0] + point.x * scale),
+        y: Math.round(img.bb[1] + point.y * scale)
       });
     }
     else {
       sPoints.push({ 
-        x: point.x * scale,
-        y: point.y * scale
+        x: Math.round(point.x * scale),
+        y: Math.round(point.y * scale)
       });
     }
   });
@@ -154,9 +176,12 @@ canTest.onpointerdown = (e) => {
 
 function runTest() {
   testBg.classList.toggle('invisible');
-  
   (decompControl.checked) ? window.decomp = decomp : window.decomp = null;
   
+  if(engine) {
+    Matter.World.clear(engine.world);
+    Matter.Engine.clear(engine);
+  }
   engine = Matter.Engine.create();
 
   const render = Matter.Render.create({
@@ -197,8 +222,19 @@ function addObj(x, y) {
     
   const obj = Matter.Bodies.fromVertices(x, y, points, {
     label: 'obj',
-    render: render
+    render: {
+      sprite: { 
+        texture: img.src,
+        xScale: scale * 0.5,
+        yScale: scale * 0.5
+      }
+    }
   }); 
+  // obj.render.sprite.texture = 'https://cdn.glitch.me/22db1ff7-3ea8-4eab-9f25-9ca603a01e31%2FBear.png?v=1639170061996'//img.src;
+  console.log(obj)
+  // obj.render.sprite.texture = img.src;
+  // obj.render.sprite.xScale = obj.render.sprite.yScale = scale * 0.5;
+  console.log(obj)
   Matter.Body.scale(obj, scale * 0.5, scale * 0.5);
   Matter.Composite.add(engine.world, [obj]);
 }
