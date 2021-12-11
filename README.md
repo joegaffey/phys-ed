@@ -23,9 +23,13 @@ Tool is running [here](https://phys-ed.glitch.me/).
 
 ## Who?
 
-Just @joegaffey for now.  
-All contributions appreciated. 
+Just @joegaffey for now. All contributions appreciated. 
 
 ## When?
 
-No time like the present.
+Basic prototype is [online](https://phys-ed.glitch.me/) now.  
+Additional features and quality improvements depend on interest and personal needs including:
+* Image clipping
+* Texture scale control
+* Different physics engine output formats
+* Test sandbox parameter controls
