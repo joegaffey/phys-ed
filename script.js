@@ -13,6 +13,7 @@ const imageControl = document.querySelector('#image');
 const ctx = can.getContext('2d');
 
 let points = [{"x":39,"y":115},{"x":20,"y":145},{"x":10,"y":181},{"x":15,"y":220},{"x":15,"y":220},{"x":26,"y":246},{"x":41,"y":269},{"x":8,"y":279},{"x":3,"y":298},{"x":7,"y":329},{"x":23,"y":354},{"x":44,"y":359},{"x":62,"y":354},{"x":44,"y":410},{"x":40,"y":438},{"x":58,"y":458},{"x":88,"y":467},{"x":117,"y":465},{"x":137,"y":453},{"x":137,"y":434},{"x":134,"y":425},{"x":159,"y":434},{"x":183,"y":431},{"x":187,"y":454},{"x":196,"y":473},{"x":243,"y":482},{"x":280,"y":474},{"x":288,"y":454},{"x":287,"y":429},{"x":276,"y":370},{"x":293,"y":375},{"x":313,"y":378},{"x":338,"y":368},{"x":357,"y":342},{"x":361,"y":311},{"x":355,"y":296},{"x":336,"y":286},{"x":314,"y":280},{"x":348,"y":242},{"x":359,"y":208},{"x":357,"y":180},{"x":354,"y":155},{"x":349,"y":141},{"x":362,"y":122},{"x":374,"y":104},{"x":376,"y":74},{"x":369,"y":53},{"x":354,"y":35},{"x":332,"y":24},{"x":297,"y":24},{"x":272,"y":35},{"x":258,"y":54},{"x":252,"y":64},{"x":207,"y":53},{"x":151,"y":54},{"x":138,"y":30},{"x":118,"y":12},{"x":93,"y":5},{"x":68,"y":6},{"x":46,"y":19},{"x":30,"y":40},{"x":26,"y":74},{"x":30,"y":97}];
+let dPoints = [];
 ta.value = JSON.stringify(points);
 let scale = 0.5;
 scaleControl.value = scale;
@@ -31,7 +32,6 @@ can.onpointerdown = (e) => {
   }
   points.push({x: Math.round(x), 
                y: Math.round(y)});
-  ta.value = JSON.stringify(points);
   draw();
 };
 
@@ -93,6 +93,7 @@ function drawPoints() {
 }
 
 function drawDecomp() {
+  dPoints = [];
   const ary2D = points.map((point) => {
     return [point.x, point.y];
   });
@@ -103,6 +104,7 @@ function drawDecomp() {
       return {x: point[0], y: point[1]};
     });
     drawPoly(scaledPoints(poly));
+    dPoints.push(poly);
   });
 }
 
@@ -157,6 +159,10 @@ function draw() {
   }
   if(points.length > 0) 
     drawPoints();
+  if(decompControl.checked)
+    ta.value = JSON.stringify(dPoints);
+  else 
+    ta.value = JSON.stringify(points);
 }
 
 function cls() {
