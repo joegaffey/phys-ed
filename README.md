@@ -4,7 +4,7 @@
 
 Basic 2D physics body editor.
 
-![Phys-Ed screenshot](https://cdn.glitch.me/22db1ff7-3ea8-4eab-9f25-9ca603a01e31%2Fscreen.png?v=1639242170427)
+![Phys-Ed screenshot](https://cdn.glitch.me/22db1ff7-3ea8-4eab-9f25-9ca603a01e31%2Fscreen.png?v=1639257617792)
 
 ## Why?
 
@@ -33,4 +33,4 @@ Additional features and quality improvements depend on interest and personal nee
 * Image clipping
 * Texture scale control
 * Different physics engine output formats
-* Test sandbox parameter controls
+* Separate test sandbox parameter controls
