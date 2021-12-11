@@ -101,7 +101,7 @@ function drawDecomp() {
   const decomposed = decomp.quickDecomp(ary2D);
   decomposed.forEach(poly => {
     poly = poly.map((point) => {
-      return {x: point[0], y: point[1]};
+      return {x: Math.round(point[0]), y: Math.round(point[1])};
     });
     drawPoly(scaledPoints(poly));
     dPoints.push(poly);
