@@ -231,10 +231,8 @@ function addObj(x, y) {
     }
   }); 
   // obj.render.sprite.texture = 'https://cdn.glitch.me/22db1ff7-3ea8-4eab-9f25-9ca603a01e31%2FBear.png?v=1639170061996'//img.src;
-  console.log(obj)
   // obj.render.sprite.texture = img.src;
   // obj.render.sprite.xScale = obj.render.sprite.yScale = scale * 0.5;
-  console.log(obj)
   Matter.Body.scale(obj, scale * 0.5, scale * 0.5);
   Matter.Composite.add(engine.world, [obj]);
 }
