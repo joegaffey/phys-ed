@@ -29,6 +29,7 @@ Just @joegaffey for now. All contributions appreciated.
 
 Basic prototype is [online](https://phys-ed.glitch.me/) now.  
 Additional features and quality improvements depend on interest and personal needs including:
+* Ability to move and delete points
 * Image clipping
 * Texture scale control
 * Different physics engine output formats
