@@ -1,8 +1,8 @@
 import Matter from './matter-jg.js';
 
 const decomp = window.decomp;
-const ta = document.querySelector('textarea');
-const can = document.querySelector('canvas');
+const ta = document.querySelector('.ta');
+const can = document.querySelector('#editor');
 const canTest = document.querySelector('#testCanvas');
 const testBg = document.querySelector('.testBg');
 const clsControl = document.querySelector('#cls');
@@ -53,6 +53,7 @@ testControl.onclick = () => { runTest() };
 
 testBg.onpointerdown = (e) => {
   testBg.classList.toggle('invisible');
+  e.stopPropagation();
 }
                              
 const imageLoader = document.getElementById('imageLoader');

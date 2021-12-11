@@ -21,28 +21,27 @@
     <script src="./script.js" type="module" defer></script>
   </head>
   <body>
-    <div class="wrapper">
-      <div class="content" role="main">
-        <div class="controls">
-          <button id="cls">Clear</button>          
-          <form>
-            <label id="imageLoader" name="imageLoader" class="file-select">
-              <input type="file" accept="image/png, image/jpeg">
-              Select Image
-            </label>
-          </form>
-          <span>Zoom</span>
-          <input type="range" id="imgScale" name="imgScale" step="0.01" min="0.1" value="1" max="2"/>  
-          <label for="decomp">Decompose</label><input type="checkbox" id="decomp" name="decomp"><span class="spacer"></span>
-          <label for="image">Image</label><input type="checkbox" id="image" name="image" checked><span class="spacer"></span>
-          <button id="testControl">Test</button> 
-        </div>
-        <canvas id="editor"></canvas>
-        <div class="testBg invisible">
-          <canvas id="testCanvas"></canvas>
-        </div>
-        <textarea></textarea>
+    <div class="content" role="main">
+      <div class="controls">
+        <button id="cls">Clear</button>          
+        <form>
+          <label id="imageLoader" name="imageLoader" class="file-select">
+            <input type="file" accept="image/png, image/jpeg">
+            Select Image
+          </label>
+        </form>
+        <span>Zoom</span>
+        <input type="range" id="imgScale" name="imgScale" step="0.01" min="0.1" value="1" max="2"/>  
+        <span class="control-wrapper"><label for="decomp">Decompose</label><input type="checkbox" id="decomp" name="decomp"></span>
+        <span class="control-wrapper"><label for="image">Image</label><input type="checkbox" id="image" name="image" checked></span>
+        <button id="testControl">Test</button> 
       </div>
+      <canvas id="editor"></canvas>
+      <textarea class="ta"></textarea>
+      <div class="testBg invisible">
+      <canvas id="testCanvas"></canvas>
+    </div>        
     </div>
+    
   </body>
 </html>
