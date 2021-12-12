@@ -1,5 +1,7 @@
 # Phys Ed
 
+[https://phys-ed.glitch.me/](https://phys-ed.glitch.me/)
+
 ## What?
 
 Basic 2D physics body editor.
@@ -8,14 +10,20 @@ Basic 2D physics body editor.
 
 ## Why?
 
-Use this tool to generate physics body shapes for 2D physics apps and games.  
-Output format is based on [matter.js](https://brm.io/matter-js/) physics library.
+Use this tool to generate physics body (collider) shapes for 2D physics apps and games.  
+
+Initial output format is based on [matter.js](https://brm.io/matter-js/) physics library.  
+Others may be added later if needed. Otherwise format conversion can be done offline or in your app code.  
+
+This tool might be a good option for simple designs and for web/mobile users.  
+If you need more features or support and are running on a supported desktop platform, I recommend the excellent [PhysicsEditor](https://www.codeandweb.com/physicseditor).  
 
 ## How?
 
 Click to create points to represent the outline of your physics object.  
 Trace the outline of an image with a transparent background for best effect.  
-Preview the generated shape in action with the built-in test viewer.  
+Click 'Test' to preview the generated shape in action with the built-in test sandbox.  
+Copy the generated json from the text area at the bottom into your physics app code.  
 
 ## Where?
 
@@ -23,7 +31,8 @@ Tool is running [here](https://phys-ed.glitch.me/).
 
 ## Who?
 
-Just @joegaffey for now. All contributions appreciated. 
+Assembled by [@joegaffey](https://github.com/joegaffey/) using [poly-decomp](https://github.com/schteppe/poly-decomp.js) and [matter.js](https://brm.io/matter-js/).  
+All contributions appreciated.  
 
 ## When?
 
