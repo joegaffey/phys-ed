@@ -22,22 +22,29 @@
   </head>
   <body>
     <div class="content" role="main">
-      <div class="controls">
-        <button id="cls">Clear</button>          
-        <form>
-          <span class="control-wrapper">
-          <label id="imageLoader" name="imageLoader" class="file-select">
-            <input type="file" accept="image/png, image/jpeg">
-            Select Image
-          </label>
-          </span>
-        </form>
-        <span class="control-wrapper"><label for="imgScale">Zoom</label><input type="range" id="imgScale" name="imgScale" step="0.01" min="0.1" value="1" max="2"/></span>  
-        <span class="control-wrapper"><label for="decomp">Decompose</label><input type="checkbox" id="decomp" name="decomp"></span>
-        <span class="control-wrapper"><label for="image">Texture</label><input type="checkbox" id="image" name="image" checked></span>
-        <span class="control-wrapper"><label for="wire">Wireframe</label><input type="checkbox" id="wire" name="wire"></span>
+      <form class="controls" action="">
+        <span class="control-wrapper">
+          <label for="imageLoader">Select Image</label>
+          <input id="imageLoader" name="imageLoader" type="file" accept="image/png, image/jpeg">
+        </span>
+        <button id="cls">Clear</button>
+        <span class="control-wrapper">
+          <label for="imgScale">Zoom</label>
+          <input type="range" id="imgScale" name="imgScale" step="0.01" min="0.1" value="1" max="2"/>
+        </span>  
+        <span class="control-wrapper">
+          <label for="decomp">Decompose</label>
+          <input type="checkbox" id="decomp" name="decomp">
+        </span>
+        <span class="control-wrapper">
+          <label for="image">Texture</label>
+          <input type="checkbox" id="image" name="image" checked>
+        </span>
+        <span class="control-wrapper">
+          <label for="wire">Wireframe</label><input type="checkbox" id="wire" name="wire">
+        </span>
         <button id="testControl">Test</button>
-      </div>
+      </form>
       <canvas id="editor"></canvas>
       <textarea class="ta"></textarea>
       <div class="testBg invisible">
