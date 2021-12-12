@@ -24,7 +24,7 @@ let img = new Image();
 img.src = 'https://cdn.glitch.me/22db1ff7-3ea8-4eab-9f25-9ca603a01e31%2FBear.png?v=1639170061996';
 img.onload = () => { draw(); };
 
-can.onpointerdown = (e) => {
+can.onclick = (e) => {
   let x = e.clientX - can.offsetLeft;
   let y = e.clientY - can.offsetTop;
   if(img) {
