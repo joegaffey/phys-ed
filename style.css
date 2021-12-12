@@ -1,24 +1,16 @@
-:root {
-  --color-bg: #aaabbb;
-  --color-text-main: #000000;
-  --color-primary: #FFFF00;
-  --image-max-width: 300px;
-  --image-margin: 3rem;
-}
-
 * {
   box-sizing: border-box;
 }
 
-[hidden] {
-  display: none !important;
+html { 
+  height: 100%; 
+  padding: 0;
+  margin: 0;
 }
-
-html {   height: 95vh; }
 
 body {
   font-family: Arial;
-  background-color: var(--color-bg);
+  background-color: #aaabbb;
   height: 100%;
 }
 
@@ -58,6 +50,8 @@ body {
 
 .testBg {
   position: absolute;
+  top: 0px; 
+  bottom: 0px; 
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -92,10 +86,6 @@ body {
 
 .controls > * {
   margin: 4px;  
-}
-
-.spacer {
-  width: 2px;
 }
 
 button, .control-wrapper {
