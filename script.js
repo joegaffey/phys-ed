@@ -56,8 +56,9 @@ clsControl.onclick = () => { cls(); };
 testControl.onclick = () => { runTest() };
 
 testBg.onpointerdown = (e) => {
-  testBg.classList.toggle('invisible');
   e.stopPropagation();
+  e.preventDefault();
+  testBg.classList.toggle('invisible');
 }
                              
 const imageLoader = document.getElementById('imageLoader');
