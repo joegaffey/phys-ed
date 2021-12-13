@@ -185,7 +185,7 @@ let engine = null;
 canTest.onpointerdown = (e) => {
   let x = e.clientX - canTest.offsetLeft;
   let y = e.clientY - canTest.offsetTop;
-  addObj(x, y);
+  addBody(x, y);
   e.stopPropagation();
 }
 
@@ -224,32 +224,33 @@ function runTest() {
   });
   
   Matter.Composite.add(engine.world, [ground]);
-  addObj(400, 0);
+  addBody(400, 0);
 }
 
-function addObj(x, y) {
-  let render = {};
-  if(img && imageControl.checked) {
-    render.sprite = { 
+function addBody(x, y) {
+  let renderBody = {};
+  if(img && imageControl.checked && !decompControl.checked) {
+    renderBody.sprite = { 
       texture: img.src,
       xScale: scale * 0.5,
       yScale: scale * 0.5
     };
   }
     
-  const myObject = Matter.Bodies.fromVertices(x, y, points, {
-    label: 'myObject',
-    render: render
+  const body = Matter.Bodies.fromVertices(x, y, points, {
+    render: renderBody
   }); 
   
-  // console.log(myObject)
-  
-  // myObject.render.sprite.texture = 'https://cdn.glitch.me/22db1ff7-3ea8-4eab-9f25-9ca603a01e31%2FBear.png?v=1639170061996'//img.src;
-  // myObject.render.sprite.texture = img.src;
-  // myObject.render.sprite.xScale = myObject.render.sprite.yScale = scale * 0.5;
-  
-  Matter.Body.scale(myObject, scale * 0.5, scale * 0.5);
-  Matter.Composite.add(engine.world, [myObject]);
+  Matter.Body.scale(body, scale * 0.5, scale * 0.5);
+  Matter.Composite.add(engine.world, [body]);
+}
+
+function shiftPoly(poly, pos) {
+  const newPoly = [];
+  poly.forEach(p => {
+    newPoly.push({ x: p.x + pos.x, y: p.y + pos.y });
+  });
+  return newPoly;
 }
 
 const resizeObserver = new ResizeObserver(entries => {
